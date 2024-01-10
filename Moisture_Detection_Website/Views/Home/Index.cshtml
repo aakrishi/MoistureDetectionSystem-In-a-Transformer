@@ -1,0 +1,233 @@
+﻿@model IndexPageViewModel
+@{
+    ViewData["Title"] = "Moisture Detection System";
+}
+
+<head>
+    <style>
+        blockquote {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        body {
+            background-color: #ECF4D6;
+            font-family: Helvetica, sans-serif;
+            font-size: 18px;
+            line-height: 24px;
+        }
+
+
+        nav {
+            margin: 94px auto 32px;
+            text-align: center;
+        }
+
+            nav ul ul {
+                display: none;
+            }
+
+          
+
+            nav ul {
+                background: #DDF2FD;
+                box-shadow: -3px 5px 9px rgba(0,0,0,0.25);
+                padding: 0 20px;
+                border-radius: 10px;
+                list-style: none;
+                position: relative;
+                display: inline-table;
+                margin-bottom:2px;    
+            
+            }
+
+                nav ul:after {
+                    content: "";
+                    clear: both;
+                    display: block;
+                }
+
+                nav ul li {
+                    float: left;
+                }
+
+                 
+ 
+                 nav ul li a {
+                        display: block;
+                        padding: 25px 40px;
+                        color: #757575;
+                        text-decoration: none;
+                    }
+
+
+                nav ul ul {
+                    background: #5f6975;
+                    border-radius: 0px;
+                    padding: 0;
+                    position: absolute;
+                    top: 100%;
+                }
+
+                    nav ul ul li {
+                        float: none;
+                        border-top: 1px solid #6b727c;
+                        border-bottom: 1px solid #575f6a;
+                        position: relative;
+                    }
+
+                        nav ul ul li a {
+                            padding: 15px 40px;
+                            color: #fff;
+                        }
+
+                          
+
+                    nav ul ul ul {
+                        position: absolute;
+                        left: 100%;
+                        top: 0;
+                    }
+
+        h1 {
+            color: #265073;
+            font-family: 'Rouge Script', cursive;
+            font-weight: normal;
+            text-align: center;
+            padding-top:15px;
+        }
+
+        button{
+            margin-right:33px;
+            margin-top:18px;
+            background: #17142b;
+            color: #757575;
+        }   
+        hr{
+            color: #363062;
+            border:10px;
+
+        }
+    </style>
+
+</head>
+
+<div class="text-center">
+
+   <div class=" container position-relative">
+
+
+           <div class="Title" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+            <h1 style="font-size:40px; font-weight:500">
+                Moisture Detection System in a Transformer</h1>
+
+            <h2 style="font-size:15px; font-family:'Times New Roman', Times, serif;color:#686391">
+
+                Project Created By: Aakrishi Tiwari & K.S.Kerti
+                <br>
+                Guided By: Sandeep Bankar
+                </h2>
+            <hr>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-sm-6">
+                <div class="card border-primary" style="font-family:'Times New Roman', Times, serif; color:#265073; box-shadow: -6px 9px 9px rgba(0,0,0,0.15);">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-size:28px">
+                            Total Transformers</h5>
+                        <hr style="background-color:black">
+                        <hr style="background-color:white">
+                        <p class="card-text" style="font-size:45px; margin-bottom:4px">@Model?.TotalTransformers</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card border-danger" style="font-family:'Times New Roman', Times, serif; color:#AF2655; box-shadow: -6px 9px 9px rgba(0,0,0,0.15);">
+                    <div class="card-body">
+                        <h5 class="card-title" style="font-size:28px">
+                            Critical Transformers</h5>
+                        <hr style="background-color:black">
+                        <hr style="background-color:white">
+                        <p class="card-text" style="font-size:45px; margin-bottom:4px">@Model?.CriticalTransformers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <form method="post" asp-action="Index" >
+            <nav>
+                <ul>
+                    <li>
+                        
+                        <select asp-for="Transformer" asp-items="@Model?.Regions" class="form-select" style="margin-top:8px; background-color: #E0F4FF">
+                            <option disabled selected>--Select Option--</option>
+                        </select>
+                    </li>
+                   
+                    <li>
+                        <button type="submit" class="btn btn-light" style="background-color:#427D9D; color: white; margin-left: 30px; margin-bottom: 9px; margin-top: 9px">
+                            Search
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </form>
+       
+        <div class="card" >
+            <div class="card-body" style="background-color:#2D9596; font-size:23px; color:black">
+                <strong> Details</strong>
+            </div>
+
+            <div class="table-responsive" style="background-color:#9AD0C2;">
+                <table class="table" style=" color:black">
+                    <thead>
+                        <tr>                           
+                            <th scope="col">Created On</th>
+                            <th scope="col">R Value</th>
+                            <th scope="col">G Value</th>
+                            <th scope="col">B Value</th>
+                            <th scope="col">isCritical</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(Model?.SilicaGelDetails != null)
+                        {
+                        @foreach (var item in Model.SilicaGelDetails)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RValue)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GValue)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.BValue)
+                                </td>
+                                <td>
+                                        @if (item.IsCritical)
+                                        {
+                                            <label>YES</label>
+                                        }
+                                        else
+                                        {
+                                            <label>NO</label>
+                                        }     
+                                </td>
+                            </tr>
+                        }
+                        } 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+    </div>
+</div>
+
